@@ -1,9 +1,8 @@
+import Login from "./login-page/login.js" 
 
 function App() {
   return (
-    <div>
-      CREATE REACT
-    </div>
+     <Login></Login>
   );
 }
 
