@@ -1,8 +1,8 @@
-
+import CreateAccount from "./CreateAccount/CreateAccount"
 function App() {
   return (
     <div>
-      CREATE REACT
+      <CreateAccount></CreateAccount>
     </div>
   );
 }
