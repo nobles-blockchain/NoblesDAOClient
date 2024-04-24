@@ -6,6 +6,9 @@
     margin: 0 auto;
     text-align: center;
   }
+  .error-message {
+    color: red; /* Set the color of error messages to red */
+  }
   
   h1 {
     margin-top: 0;
