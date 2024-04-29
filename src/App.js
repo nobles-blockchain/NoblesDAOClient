@@ -1,10 +1,10 @@
-
+import Homepage from "./Homepage/Homepage"
 function App() {
-  return (
-    <div>
-      CREATE REACT
+    return (
+      <div className="container">
+      <Homepage />
     </div>
-  );
+    );
 }
 
 export default App;
