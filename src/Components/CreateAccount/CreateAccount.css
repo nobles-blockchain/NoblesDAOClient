@@ -1,0 +1,59 @@
+.container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .error-message {
+    color: red; /* Set the color of error messages to red */
+  }
+  
+  h1 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  button {
+    background-color: #004990;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #00008B;
+  }
+  
+  .logo-container {
+    margin-top: 20px;
+  }
+  
+  .nobles-shield-blue {
+    max-width: 100%;
+  }
+  
