@@ -1,8 +1,9 @@
+import LoginPage from "./Login-Page/Login.js";
 
 function App() {
   return (
     <div>
-      CREATE REACT
+      <LoginPage />
     </div>
   );
 }
