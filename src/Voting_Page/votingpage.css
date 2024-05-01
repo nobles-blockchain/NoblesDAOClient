@@ -1,0 +1,61 @@
+.title{
+    text-align: center;
+    height: 20vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.question{
+    text-align: center;
+    margin-top: -60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+.myButton{
+    background-color: rgb(25, 25, 139); /* Change to your desired color */
+    color: white; /* Text color */
+    border: none; /* Removes default button border */
+    margin-top: 10px;
+    height: 60px;
+    width: 500px;
+    /* You can add more styles here */
+}
+
+.buttonText{
+    font-Size: 35px;
+}
+
+.submitButtonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitButton{
+    background-color: rgb(106, 106, 244); /* Change to your desired color */
+    border: none; /* Removes default button border */
+    margin-top: 50px;
+    height: 60px;
+    width: 400px;
+    margin-bottom: 100px;
+}
+
+.submitButtonText{
+    color: rgb(197, 196, 196); /* Text color */
+    font-Size: 35px;
+    text-align: center;
+    margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.text{
+    font-Size: 35px;
+}
