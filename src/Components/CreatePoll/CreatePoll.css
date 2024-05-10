@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+.create-poll-election-page {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #003366;
+}
+
+h2 {
+  font-size: 28px;
+  color: #0059b3;
+}
+
+.form-container, .options-container {
+  padding: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #003366;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-create, .btn-add, .btn-submit, .btn-back {
+  background-color: #003366;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-create:hover, .btn-add:hover, .btn-submit:hover, .btn-back:hover {
+  background-color: #0059b3;
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}

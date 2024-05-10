@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Homepage.css';
 
 function Homepage() {
@@ -19,6 +20,11 @@ function Homepage() {
       <header className="header">
         <h1 className="title">Welcome to Dawg Polls</h1>
       </header>
+      <div className="create-your-own-section">
+        <Link to="/create-poll">
+          <button className="create-your-own-button">Create Your Own!</button>
+        </Link>
+      </div>
       <div className="content">
         <div className="polls-section">
           <h2 className="section-title">Current Polls</h2>
@@ -46,4 +52,5 @@ function Homepage() {
 }
 
 export default Homepage;
+
 
