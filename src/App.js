@@ -2,6 +2,7 @@ import CreateAccount from "./Components/CreateAccount/CreateAccount"
 import HomePage from "./Components/Homepage/Homepage";
 import LoginPage from "./Components/Login-Page/Login";
 import CreatePoll from "./Components/CreatePoll/CreatePoll";
+import VotingPage from "./Components/Voting_Page/votingpage.js";
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
 import {setUserIdCookie, getUserIdFromCookie, removeUserIdCookie} from './Components/Cookies/AuthServices.js';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/home-page" element={isLoggedIn() ? <HomePage /> : <Navigate to={"/login"} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-poll" element={<CreatePoll onCreatePoll={handleCreatePoll} onCreateElection={handleCreateElection}/>} />
+          <Route path='/Vote' element={<VotingPage />} />
         </Routes>
       </div>
     </Router>
@@ -35,3 +37,5 @@ function App() {
 }
 
 export default App;
+
+//allow people to vote using buttons
