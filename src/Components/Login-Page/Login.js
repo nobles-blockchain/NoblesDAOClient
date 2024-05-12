@@ -12,54 +12,47 @@ function LoginPage({history}) {
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [loading, setLoading] = useState(false); // State variable for loading state
-  const [loggedIn, setLoggedIn] = useState(false); // State variable for login status
+  const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-  // Function to handle username validation
   const handleUsernameChange = (value) => {
     setUsername(value);
-    if (!value) {
-      setUsernameError('Please enter your username');
-    } else {
-      setUsernameError('');
-    }
+    setUsernameError(value ? '' : 'Please enter your username');
   };
 
-  // Function to handle password validation
   const handlePasswordChange = (value) => {
     setPassword(value);
-    if (!value) {
-      setPasswordError('Please enter your password');
-    } else {
-      setPasswordError('');
-    }
+    setPasswordError(value ? '' : 'Please enter your password');
   };
   const navigate = useNavigate();
 
 
   const handleLoginSuccess = (userId) => {
     setUserIdCookie(userId);
+    console.log("REACHED")
     navigate('/home-page');
   };
   // Function to handle form submission
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
-    // Check if username or password is empty
-    if (!username || !password) {
-      if (!username) {
-        setUsernameError('Please enter your username');
-      }
-      if (!password) {
-        setPasswordError('Please enter your password');
-      }
+    event.preventDefault();
+
+    if (!username) {
+      setUsernameError('Please enter your username');
       return;
     }
+
+    if (!password) {
+      setPasswordError('Please enter your password');
+      return;
+    }
+
     try {
       setLoading(true); // Set loading state to true
       // Make a POST request to the backend API endpoint for logging in
-      const response = await axios.post('http://localhost:3001/login', {
-        email: {username},
-        password: {password},
+      const response = await axios.post('https://nobles-dao-api-276edade8fdf.herokuapp.com/login', {
+        email: username,
+        password: password,
       });
       const userId= response.data.userId;
       console.log('User ID:', response.data.userId);
@@ -68,9 +61,9 @@ function LoginPage({history}) {
       setLoggedIn(true);
     } catch (error) {
       console.error('Error logging in:', error);
-      // Handle error appropriately, such as displaying an error message to the user
+      setLoginError('Invalid username or password. Please try again.');
     } finally {
-      setLoading(false); // Reset loading state to false after submission attempt
+      setLoading(false);
     }
   };
 
@@ -83,6 +76,7 @@ function LoginPage({history}) {
     return (
       <div className="container">
         <h1>Log In</h1>
+        {loginError && <p className="error-message">{loginError}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
@@ -92,9 +86,9 @@ function LoginPage({history}) {
               name="username"
               placeholder="Enter your username"
               value={username}
-              onChange={(e) => handleUsernameChange(e.target.value)} // Validate username as user types
+              onChange={(e) => handleUsernameChange(e.target.value)}
             />
-            {usernameError && <p className="error-message">{usernameError}</p>} {/* Display username error message */}
+            {usernameError && <p className="error-message">{usernameError}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="password">Password:</label>
@@ -104,9 +98,9 @@ function LoginPage({history}) {
               name="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => handlePasswordChange(e.target.value)} // Validate password as user types
+              onChange={(e) => handlePasswordChange(e.target.value)}
             />
-            {passwordError && <p className="error-message">{passwordError}</p>} {/* Display password error message */}
+            {passwordError && <p className="error-message">{passwordError}</p>}
           </div>
           <button type="submit" >
             {loading ? 'Logging in...' : 'Log In'}
