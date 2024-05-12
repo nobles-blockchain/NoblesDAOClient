@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Homepage.css';
+import {removeUserIdCookie} from '../Cookies/AuthServices.js';
+import {useNavigate} from 'react-router-dom';
+
 
 function Homepage() {
   const [polls, setPolls] = useState([
@@ -14,11 +18,24 @@ function Homepage() {
     { id: 3, title: "Club Officer Election" }
   ]);
 
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    removeUserIdCookie();
+    navigate('/login');
+
+  };
+
   return (
     <div className="homepage">
       <header className="header">
         <h1 className="title">Welcome to Dawg Polls</h1>
       </header>
+      <div className="create-your-own-section">
+        <Link to="/create-poll">
+          <button className="create-your-own-button">Create Your Own!</button>
+        </Link>
+      </div>
       <div className="content">
         <div className="polls-section">
           <h2 className="section-title">Current Polls</h2>
@@ -41,9 +58,13 @@ function Homepage() {
         <h2 className="section-title">About Us</h2>
         <p>Noble and Greenough School is a rigorous academic community dedicated to inspiring leadership for the public good. Through mentoring relationships, we motivate students to achieve their highest potential and to lead lives characterized by service to others.</p>
       </div>
+      <div>
+        <button onClick={handleLogOut}>Log Out</button>
+      </div>
     </div>
   );
 }
 
 export default Homepage;
+
 
