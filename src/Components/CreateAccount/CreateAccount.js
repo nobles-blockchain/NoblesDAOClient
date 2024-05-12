@@ -2,6 +2,8 @@ import noblesshieldblue from './noblesshieldblue.png'; // Import the image file
 import './CreateAccount.css';
 import { useState } from 'react'; // Import useState hook for managing state
 import axios from 'axios'; // Import Axios for making HTTP requests
+import '../../App.js';
+import {BrowserRouter as Router, Routes, Route,useNavigate} from 'react-router-dom';
 
 function CreateAccount() {
   // State variables to store username, password, and confirmation password
@@ -74,10 +76,13 @@ function CreateAccount() {
     }
   };
 
+  const navigate = useNavigate();
+
   // Function to handle redirecting to the login page
   const redirectToLoginPage = () => {
     // Logic to redirect to the login page
-    console.log("Redirecting to login page...");
+    navigate('/login');
+    console.log("Redirecting to login page..."); 
   };
 
   // Render the form if submission hasn't been made, otherwise render the button
