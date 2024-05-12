@@ -1,8 +1,8 @@
 import './Login.css';
 import { useState } from 'react'; // Import useState hook for managing state
 import axios from 'axios'; // Import Axios for making HTTP requests
-import {setUserIdCookie, getUserIdFromCookie, removeUserIdCookie} from '../Cookies/AuthServices.js';
-import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
+import {setUserIdCookie} from '../Cookies/AuthServices.js';
+import {useNavigate} from 'react-router-dom';
 
 
 

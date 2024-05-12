@@ -2,7 +2,7 @@ import noblesshieldblue from './noblesshieldblue.png';
 import './CreateAccount.css';
 import { useState } from 'react'; // Import useState hook for managing state
 import axios from 'axios'; // Import Axios for making HTTP requests
-import {BrowserRouter as Router, Routes, Route,useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function CreateAccount() {
   const [username, setUsername] = useState('');

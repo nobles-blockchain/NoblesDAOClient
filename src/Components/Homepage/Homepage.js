@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
-import {setUserIdCookie, getUserIdFromCookie, removeUserIdCookie} from '../Cookies/AuthServices.js';
-import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
+import {removeUserIdCookie} from '../Cookies/AuthServices.js';
+import {useNavigate} from 'react-router-dom';
 
 
 function Homepage() {
