@@ -97,9 +97,16 @@ function CreatePollElectionPage({ onCreatePoll, onCreateElection }) {
     setShowElectionOptions(false);
   };
 
+  const handleNavigateHome = () => {
+    window.location.href = 'http://localhost:3000/Home-page';
+  };
+
   return (
     <div className="create-poll-election-page">
       <h1>Create Poll or Election</h1>
+      <div className="navigate-home-section">
+        <button className="navigate-home-button" onClick={handleNavigateHome}>Go to Home Page</button>
+      </div>
       {!showPollOptions && !showElectionOptions && (
         <>
           <div>
@@ -180,6 +187,5 @@ function CreatePollElectionPage({ onCreatePoll, onCreateElection }) {
 }
 
 export default CreatePollElectionPage;
-
 
 

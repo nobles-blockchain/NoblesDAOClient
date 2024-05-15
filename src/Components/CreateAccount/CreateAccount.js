@@ -2,7 +2,7 @@ import noblesshieldblue from './noblesshieldblue.png';
 import './CreateAccount.css';
 import { useState } from 'react'; // Import useState hook for managing state
 import axios from 'axios'; // Import Axios for making HTTP requests
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -127,6 +127,7 @@ function CreateAccount() {
             </div>
             <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Submit'}</button>
           </form>
+          <button onClick={redirectToLoginPage} className="back-button">Back</button>
           <div className="logo-container">
             <img src={noblesshieldblue} alt="Nobles Shield Blue" className="nobles-shield-blue" />
           </div>
