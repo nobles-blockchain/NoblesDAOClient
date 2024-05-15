@@ -1,6 +1,6 @@
 import CreateAccount from "./Components/CreateAccount/CreateAccount"
 import HomePage from "./Components/Homepage/Homepage";
-import LoginPage from "./Components/Login-Page/Login";
+import LoginPage from "./Components/LoginPage/Login";
 import CreatePoll from "./Components/CreatePoll/CreatePoll";
 import VotingPage from "./Components/Voting_Page/votingpage.js";
 import React, { useState } from 'react';
@@ -17,7 +17,7 @@ function App() {
   };
 
   function checkLogin() {
-    return getUserIdFromCookie() !== "null";
+    return getUserIdFromCookie()
   }
 
   return (

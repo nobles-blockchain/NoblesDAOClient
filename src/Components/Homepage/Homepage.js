@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Homepage.css';
 import { removeUserIdCookie } from '../Cookies/AuthServices.js';
-import { useNavigate } from 'react-router-dom';
-import noblesLogo from '../../assets/nobles-logo.png'; // Adjust the path as needed
+import Banner from '../Banner/Banner';
 
 const userId = "VOydpk8n29YGBpbBlXp8E7vWjO22"; // Constant userId
 
@@ -35,18 +34,14 @@ function Homepage() {
     navigate('/login');
   };
 
+  const bannerButtons = [
+    { label: 'Create Poll', link: '/create-poll' },
+    { label: 'Log Out', onClick: handleLogOut }
+  ];
+
   return (
     <div className="homepage">
-      <div className="banner">
-        <img src={noblesLogo} alt="Nobles Logo" />
-        <div className="banner-title">DawgPolls</div>
-        <div className="banner-buttons">
-          <Link to="/create-poll">
-            <button className="banner-button">Create Poll</button>
-          </Link>
-          <button className="banner-button" onClick={handleLogOut}>Log Out</button>
-        </div>
-      </div>
+      <Banner title="DawgPolls" buttons={bannerButtons} />
       <div className="content">
         <div className="polls-section">
           <h2 className="section-title">Current Polls</h2>

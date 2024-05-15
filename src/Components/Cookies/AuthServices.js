@@ -1,13 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
 import Cookies from 'js-cookie';
 
-const USER_ID_COOKIE_NAME = "null";
-
-
+const USER_ID_COOKIE_NAME = "user_id";
 
 export const setUserIdCookie = (userId) => {
-  Cookies.set(USER_ID_COOKIE_NAME, userId);
+  return new Promise((resolve) => {
+    Cookies.set(USER_ID_COOKIE_NAME, userId);
+    resolve();
+  });
 };
 
 export const getUserIdFromCookie = () => {
@@ -15,8 +14,8 @@ export const getUserIdFromCookie = () => {
 };
 
 export const removeUserIdCookie = () => {
-  Cookies.set(USER_ID_COOKIE_NAME, "null");
+  return new Promise((resolve) => {
+    Cookies.remove(USER_ID_COOKIE_NAME);
+    resolve();
+  });
 };
-
-
-

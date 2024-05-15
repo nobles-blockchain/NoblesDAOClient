@@ -1,0 +1,51 @@
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #013366;
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .banner-logo {
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .banner-title {
+    flex-grow: 1;
+    text-align: center;
+    color: white;
+    font-family: 'Garamond', serif;
+    font-size: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .banner-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .banner-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #0059b3;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .banner-button:hover {
+    background-color: #0073e6;
+    transform: scale(1.05);
+  }
+  

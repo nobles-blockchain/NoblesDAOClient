@@ -1,8 +1,8 @@
-import noblesshieldblue from './noblesshieldblue.png';
 import './CreateAccount.css';
 import { useState } from 'react'; // Import useState hook for managing state
 import axios from 'axios'; // Import Axios for making HTTP requests
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Banner from '../Banner/Banner';
 
 function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -75,68 +75,71 @@ function CreateAccount() {
 
   const navigate = useNavigate();
 
-  // Function to handle redirecting to the login page
   const redirectToLoginPage = () => {
-    // Logic to redirect to the login page
     navigate('/login');
-    console.log("Redirecting to login page..."); 
   };
 
+  const bannerButtons = [
+    { label: 'Log In', link: '/login' }
+  ];
+
   return (
-    <div className="container">
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {!submitted ? (
-        <div>
-          <h1>Create Account</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input 
-                type="text" 
-                id="username" 
-                name="username" 
-                placeholder="Enter your username" 
-                value={username}
-                onChange={(e) => handleUsernameChange(e.target.value)}
-              />
-              {usernameError && <p className="error-message">{usernameError}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Create a password:</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                placeholder="Enter your password" 
-                value={password}
-                onChange={(e) => handlePasswordChange(e.target.value)}
-              />
-              {passwordError && <p className="error-message">{passwordError}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm password:</label>
-              <input 
-                type="password" 
-                id="confirmPassword" 
-                name="confirmPassword" 
-                placeholder="Confirm your password" 
-                value={confirmPassword}
-                onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-              />
-              {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
-            </div>
-            <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Submit'}</button>
-          </form>
-          <div className="logo-container">
-            <img src={noblesshieldblue} alt="Nobles Shield Blue" className="nobles-shield-blue" />
+    <div className="create-account-page">
+      <Banner title="Create Account" buttons={bannerButtons} />
+      <div className="container">
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {!submitted ? (
+          <div>
+            <h1>Create Account</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username:</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  placeholder="Enter your username" 
+                  value={username}
+                  onChange={(e) => handleUsernameChange(e.target.value)}
+                />
+                {usernameError && <p className="error-message">{usernameError}</p>}
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Create a password:</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  placeholder="Enter your password" 
+                  value={password}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                />
+                {passwordError && <p className="error-message">{passwordError}</p>}
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm password:</label>
+                <input 
+                  type="password" 
+                  id="confirmPassword" 
+                  name="confirmPassword" 
+                  placeholder="Confirm your password" 
+                  value={confirmPassword}
+                  onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+                />
+                {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
+              </div>
+              <button type="submit" className="capsule-button" disabled={loading}>
+                {loading ? 'Loading...' : 'Submit'}
+              </button>
+            </form>
           </div>
-        </div>
-      ) : (
-        <div>
-          <h1>Account Created</h1>
-          <button onClick={redirectToLoginPage}>Go to Log In</button>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h1>Account Created</h1>
+            <button onClick={redirectToLoginPage} className="capsule-button">Go to Log In</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
