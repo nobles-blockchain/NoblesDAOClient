@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import './Login.css';
+import { useState } from 'react';
 import axios from 'axios';
 import { setUserIdCookie } from '../Cookies/AuthServices.js';
 import { useNavigate } from 'react-router-dom';
 import Banner from '../Banner/Banner';
-import './Login.css';
 
-function LoginPage() {
+function LoginPage({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
@@ -27,7 +26,10 @@ function LoginPage() {
   };
 
   const handleLoginSuccess = async (userId) => {
+    console.log('Setting userId cookie:', userId);
     await setUserIdCookie(userId);
+    console.log('Cookie set, logging in');
+    onLogin();
     navigate('/home-page');
   };
 
@@ -51,8 +53,8 @@ function LoginPage() {
         password: password,
       });
       const userId = response.data.userId;
-      handleLoginSuccess(userId);
-      setLoggedIn(true);
+      console.log('Login successful, userId:', userId);
+      await handleLoginSuccess(userId);
     } catch (error) {
       console.error('Error logging in:', error);
       setLoginError('Invalid username or password. Please try again.');
@@ -69,51 +71,47 @@ function LoginPage() {
     { label: 'Create Account', link: '/create-account' }
   ];
 
-  if (!loggedIn) {
-    return (
-      <div className="login-page">
-        <Banner title="Log In" buttons={bannerButtons} />
-        <div className="container">
-          <h1>Log In</h1>
-          {loginError && <p className="error-message">{loginError}</p>}
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => handleUsernameChange(e.target.value)}
-              />
-              {usernameError && <p className="error-message">{usernameError}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => handlePasswordChange(e.target.value)}
-              />
-              {passwordError && <p className="error-message">{passwordError}</p>}
-            </div>
-            <button type="submit" className="capsule-button">
-              {loading ? 'Logging in...' : 'Log In'}
-            </button>
-          </form>
-          <p className="create-account-text" onClick={handleCreateAccount}>
-            Don't have an account? <span>Click to create one</span>
-          </p>
-        </div>
+  return (
+    <div className="login-page">
+      <Banner title="Log In" buttons={bannerButtons} />
+      <div className="container">
+        <h1>Log In</h1>
+        {loginError && <p className="error-message">{loginError}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => handleUsernameChange(e.target.value)}
+            />
+            {usernameError && <p className="error-message">{usernameError}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => handlePasswordChange(e.target.value)}
+            />
+            {passwordError && <p className="error-message">{passwordError}</p>}
+          </div>
+          <button type="submit" className="capsule-button">
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+        <p className="create-account-text" onClick={handleCreateAccount}>
+          Don't have an account? <span>Click to create one</span>
+        </p>
       </div>
-    );
-  } else {
-    return null;
-  }
+    </div>
+  );
 }
 
 export default LoginPage;

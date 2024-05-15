@@ -2,12 +2,18 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Banner.css';
 import noblesLogo from '../../assets/nobles-logo.png'; // Adjust the path as needed
+import { getUserIdFromCookie } from '../Cookies/AuthServices.js';
 
 function Banner({ title, buttons }) {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    navigate('/');
+    const userId = getUserIdFromCookie();
+    if (userId) {
+      navigate('/home-page');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (

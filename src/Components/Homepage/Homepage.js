@@ -29,8 +29,8 @@ function Homepage() {
     });
   }, []);
 
-  const handleLogOut = () => {
-    removeUserIdCookie();
+  const handleLogOut = async () => {
+    await removeUserIdCookie();
     navigate('/login');
   };
 

@@ -1,35 +1,37 @@
-import CreateAccount from "./Components/CreateAccount/CreateAccount"
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import CreateAccount from "./Components/CreateAccount/CreateAccount";
 import HomePage from "./Components/Homepage/Homepage";
 import LoginPage from "./Components/LoginPage/Login";
 import CreatePoll from "./Components/CreatePoll/CreatePoll";
 import VotingPage from "./Components/Voting_Page/votingpage.js";
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
-import {setUserIdCookie, getUserIdFromCookie, removeUserIdCookie} from './Components/Cookies/AuthServices.js';
+import { getUserIdFromCookie, removeUserIdCookie } from './Components/Cookies/AuthServices.js';
 
 function App() {
-  const handleCreatePoll = (pollTitle) => {
-    console.log(`Creating poll with title: ${pollTitle}`);
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(!!getUserIdFromCookie());
 
-  const handleCreateElection = (electionTitle) => {
-    console.log(`Creating election with title: ${electionTitle}`);
-  };
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!getUserIdFromCookie());
+    };
 
-  function checkLogin() {
-    return getUserIdFromCookie()
-  }
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   return (
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Navigate to={checkLogin() ? "/home-page" : "/login"} />} />
-          <Route path="/create-account" element={ <CreateAccount />} />
-          <Route path="/home-page" element={checkLogin() ? <HomePage /> : <Navigate to={"/login"} />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/create-poll" element={<CreatePoll onCreatePoll={handleCreatePoll} onCreateElection={handleCreateElection}/>} />
-          <Route path='/Vote' element={<VotingPage />} />
+          <Route path="/" element={isLoggedIn ? <Navigate to="/home-page" /> : <Navigate to="/login" />} />
+          <Route path="/create-account" element={<CreateAccount />} />
+          <Route path="/home-page" element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />} />
+          <Route path="/login" element={<LoginPage onLogin={() => setIsLoggedIn(true)} />} />
+          <Route path="/create-poll" element={isLoggedIn ? <CreatePoll /> : <Navigate to="/login" />} />
+          <Route path="/vote" element={<VotingPage />} />
         </Routes>
       </div>
     </Router>
@@ -37,5 +39,3 @@ function App() {
 }
 
 export default App;
-
-//allow people to vote using buttons

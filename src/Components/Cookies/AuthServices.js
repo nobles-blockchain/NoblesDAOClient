@@ -5,6 +5,7 @@ const USER_ID_COOKIE_NAME = "user_id";
 export const setUserIdCookie = (userId) => {
   return new Promise((resolve) => {
     Cookies.set(USER_ID_COOKIE_NAME, userId);
+    console.log('Cookie set:', userId);
     resolve();
   });
 };
@@ -16,6 +17,7 @@ export const getUserIdFromCookie = () => {
 export const removeUserIdCookie = () => {
   return new Promise((resolve) => {
     Cookies.remove(USER_ID_COOKIE_NAME);
+    console.log('Cookie removed');
     resolve();
   });
 };
