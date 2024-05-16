@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Homepage.css';
-import { removeUserIdCookie } from '../Cookies/AuthServices.js';
+import { removeUserIdCookie, getUserIdFromCookie } from '../Cookies/AuthServices.js';
 import Banner from '../Banner/Banner';
-
-const userId = "VOydpk8n29YGBpbBlXp8E7vWjO22"; // Constant userId
 
 function Homepage() {
   const [polls, setPolls] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userId = getUserIdFromCookie();
     axios.get(`https://nobles-dao-api-276edade8fdf.herokuapp.com/view_polls`, {
       params: {
         userId: userId,
