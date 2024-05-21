@@ -71,3 +71,37 @@ input[type="password"] {
   color: red;
   margin: 10px 0;
 }
+
+/* Styles for password criteria checklist */
+.password-criteria {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.password-criteria li {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.password-criteria .valid::before {
+  content: '✔️';
+  color: green;
+  margin-right: 5px;
+}
+
+.password-criteria .invalid::before {
+  content: '❌';
+  color: red;
+  margin-right: 5px;
+}
+
+/* Explicitly setting the color for check marks */
+.password-criteria .valid {
+  color: green;
+}
+
+.password-criteria .invalid {
+  color: red;
+}

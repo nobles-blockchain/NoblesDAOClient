@@ -1,8 +1,8 @@
-import './CreateAccount.css';
-import { useState } from 'react'; // Import useState hook for managing state
-import axios from 'axios'; // Import Axios for making HTTP requests
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Banner from '../Banner/Banner';
+import './CreateAccount.css';
 
 function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -15,6 +15,15 @@ function CreateAccount() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const navigate = useNavigate();
+
+  const passwordCriteria = {
+    length: password.length >= 8,
+    capital: /[A-Z]/.test(password),
+    number: /\d/.test(password),
+    special: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
+
   const handleUsernameChange = (value) => {
     setUsername(value);
     if (!/nobles\.edu$/.test(value)) {
@@ -26,8 +35,15 @@ function CreateAccount() {
 
   const handlePasswordChange = (value) => {
     setPassword(value);
-    if (value.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
+    const newPasswordCriteria = {
+      length: value.length >= 8,
+      capital: /[A-Z]/.test(value),
+      number: /\d/.test(value),
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(value),
+    };
+    const criteriaMet = Object.values(newPasswordCriteria).every(Boolean);
+    if (!criteriaMet) {
+      setPasswordError("Password does not meet all criteria");
     } else {
       setPasswordError('');
     }
@@ -73,8 +89,6 @@ function CreateAccount() {
     }
   };
 
-  const navigate = useNavigate();
-
   const redirectToLoginPage = () => {
     navigate('/login');
   };
@@ -115,6 +129,20 @@ function CreateAccount() {
                   onChange={(e) => handlePasswordChange(e.target.value)}
                 />
                 {passwordError && <p className="error-message">{passwordError}</p>}
+                <ul className="password-criteria">
+                  <li className={passwordCriteria.length ? 'valid' : 'invalid'}>
+                    Contain at least 8 characters
+                  </li>
+                  <li className={passwordCriteria.capital ? 'valid' : 'invalid'}>
+                    Contain both lower and uppercase letters
+                  </li>
+                  <li className={passwordCriteria.number ? 'valid' : 'invalid'}>
+                    Contain at least one number
+                  </li>
+                  <li className={passwordCriteria.special ? 'valid' : 'invalid'}>
+                    Contain at least one special character
+                  </li>
+                </ul>
               </div>
               <div className="form-group">
                 <label htmlFor="confirmPassword">Confirm password:</label>
