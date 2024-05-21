@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getUserIdFromCookie } from '../Cookies/AuthServices.js';
 import Banner from '../Banner/Banner';
 import './PollPage.css';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 function PollPage() {
   const [poll, setPoll] = useState(null);
@@ -83,6 +84,27 @@ function PollPage() {
     return <p className="error">{error}</p>;
   }
 
+  const renderPollResults = (poll) => {
+    const data = poll.choices.map(choice => ({
+      name: choice.option,
+      value: choice.votes
+    }));
+
+    return (
+      <div className="Graph-container">
+        <div className="Graph">
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={data} layout='vertical'>
+              <XAxis type="number" hide />
+              <YAxis dataKey="name" type="category" />
+              <Bar dataKey="value" fill="#1345AA" label={{ position: 'center', fill: 'white'}}/>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="poll-page">
       <Banner 
@@ -128,11 +150,7 @@ function PollPage() {
             ) : (
               <div>
                 <p>Here are the results:</p>
-                <ul>
-                  {poll.choices.map((choice, index) => (
-                    <li key={index}>{choice.option}: {choice.votes} votes</li>
-                  ))}
-                </ul>
+                {renderPollResults(poll)}
               </div>
             )}
           </>
