@@ -10,6 +10,7 @@ function CreatePoll() {
   const [pollError, setPollError] = useState('');
   const [pollOptions, setPollOptions] = useState(['', '']); // Two initial empty poll options
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
@@ -51,6 +52,8 @@ function CreatePoll() {
       setTimeout(() => {
         setPollError('');
       }, 3000); // Clear the error after 3 seconds
+    } finally {
+      setIsSubmitting(false); // Re-enable the submit button
     }
   };
 
@@ -66,6 +69,7 @@ function CreatePoll() {
     }
     setPollError('');
     console.log('valid poll');
+    setIsSubmitting(true); // Disable the submit button
     createPoll(userId, newPollTitle, validOptions);
   };
 
@@ -114,7 +118,13 @@ function CreatePoll() {
             </div>
           ))}
           <button onClick={addPollOption} className="btn-add-text">Add Option</button>
-          <button onClick={handleSubmitPoll} className="btn-submit">Submit Poll</button>
+          <button 
+            onClick={handleSubmitPoll} 
+            className="btn-submit" 
+            disabled={isSubmitting} // Disable the button when submitting
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Poll'}
+          </button>
           {pollError && <p className="error">{pollError}</p>}
         </div>
       )}

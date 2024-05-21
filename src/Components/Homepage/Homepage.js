@@ -11,10 +11,8 @@ function Homepage() {
 
   useEffect(() => {
     const userId = getUserIdFromCookie();
-    axios.get(`https://nobles-dao-api-276edade8fdf.herokuapp.com/view_polls`, {
-      params: {
-        userId: userId,
-      },
+    axios.get('https://nobles-dao-api-276edade8fdf.herokuapp.com/view_polls', {
+      params: { userId },
     })
     .then(response => {
       if (response.data.success) {
@@ -33,6 +31,10 @@ function Homepage() {
     navigate('/login');
   };
 
+  const handlePollClick = (pollId) => {
+    navigate(`/poll/${pollId}`);
+  };
+
   const bannerButtons = [
     { label: 'Create Poll', link: '/create-poll' },
     { label: 'Log Out', onClick: handleLogOut }
@@ -46,7 +48,13 @@ function Homepage() {
           <h2 className="section-title">Current Polls</h2>
           <div className="buttons-container">
             {polls.map(poll => (
-              <button key={poll.id} className="poll-button">{poll.name}</button>
+              <button 
+                key={poll.id} 
+                className="poll-button" 
+                onClick={() => handlePollClick(poll.id)}
+              >
+                {poll.name}
+              </button>
             ))}
           </div>
         </div>
