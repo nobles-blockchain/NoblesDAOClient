@@ -8,7 +8,7 @@ body, html {
   height: 100%;
 }
 
-.create-account-page {
+.login-page {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -39,8 +39,7 @@ label {
   color: #333;
 }
 
-input[type="text"],
-input[type="password"] {
+input {
   width: calc(100% - 20px);
   padding: 10px;
   border: 1px solid #ccc;
@@ -72,36 +71,13 @@ input[type="password"] {
   margin: 10px 0;
 }
 
-/* Styles for password criteria checklist */
-.password-criteria {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.password-criteria li {
-  margin: 5px 0;
+.create-account-text {
+  color: #003366;
+  cursor: pointer;
+  margin-top: 20px;
   font-size: 14px;
 }
 
-.password-criteria .valid::before {
-  content: '✔️';
-  color: green;
-  margin-right: 5px;
-}
-
-.password-criteria .invalid::before {
-  content: '❌';
-  color: red;
-  margin-right: 5px;
-}
-
-/* Explicitly setting the color for check marks */
-.password-criteria .valid {
-  color: green;
-}
-
-.password-criteria .invalid {
-  color: red;
+.create-account-text span {
+  text-decoration: underline;
 }

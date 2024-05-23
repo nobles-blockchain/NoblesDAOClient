@@ -1,8 +1,8 @@
-import noblesshieldblue from './noblesshieldblue.png';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Banner from '../Banner/Banner';
 import './CreateAccount.css';
-import { useState } from 'react'; // Import useState hook for managing state
-import axios from 'axios'; // Import Axios for making HTTP requests
-import {useNavigate} from 'react-router-dom';
 
 function CreateAccount() {
   const [username, setUsername] = useState('');
@@ -15,6 +15,15 @@ function CreateAccount() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const navigate = useNavigate();
+
+  const passwordCriteria = {
+    length: password.length >= 8,
+    capital: /[A-Z]/.test(password),
+    number: /\d/.test(password),
+    special: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+  };
+
   const handleUsernameChange = (value) => {
     setUsername(value);
     if (!/nobles\.edu$/.test(value)) {
@@ -26,8 +35,15 @@ function CreateAccount() {
 
   const handlePasswordChange = (value) => {
     setPassword(value);
-    if (value.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
+    const newPasswordCriteria = {
+      length: value.length >= 8,
+      capital: /[A-Z]/.test(value),
+      number: /\d/.test(value),
+      special: /[!@#$%^&*(),.?":{}|<>]/.test(value),
+    };
+    const criteriaMet = Object.values(newPasswordCriteria).every(Boolean);
+    if (!criteriaMet) {
+      setPasswordError("Password does not meet all criteria");
     } else {
       setPasswordError('');
     }
@@ -73,70 +89,85 @@ function CreateAccount() {
     }
   };
 
-  const navigate = useNavigate();
-
-  // Function to handle redirecting to the login page
   const redirectToLoginPage = () => {
-    // Logic to redirect to the login page
     navigate('/login');
-    console.log("Redirecting to login page..."); 
   };
 
+  const bannerButtons = [
+    { label: 'Log In', link: '/login' }
+  ];
+
   return (
-    <div className="container">
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {!submitted ? (
-        <div>
-          <h1>Create Account</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input 
-                type="text" 
-                id="username" 
-                name="username" 
-                placeholder="Enter your username" 
-                value={username}
-                onChange={(e) => handleUsernameChange(e.target.value)}
-              />
-              {usernameError && <p className="error-message">{usernameError}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Create a password:</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                placeholder="Enter your password" 
-                value={password}
-                onChange={(e) => handlePasswordChange(e.target.value)}
-              />
-              {passwordError && <p className="error-message">{passwordError}</p>}
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm password:</label>
-              <input 
-                type="password" 
-                id="confirmPassword" 
-                name="confirmPassword" 
-                placeholder="Confirm your password" 
-                value={confirmPassword}
-                onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-              />
-              {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
-            </div>
-            <button type="submit" disabled={loading}>{loading ? 'Loading...' : 'Submit'}</button>
-          </form>
-          <div className="logo-container">
-            <img src={noblesshieldblue} alt="Nobles Shield Blue" className="nobles-shield-blue" />
+    <div className="create-account-page">
+      <Banner title="Create Account" buttons={bannerButtons} />
+      <div className="container">
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {!submitted ? (
+          <div>
+            <h1>Create Account</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username:</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  placeholder="Enter your username" 
+                  value={username}
+                  onChange={(e) => handleUsernameChange(e.target.value)}
+                />
+                {usernameError && <p className="error-message">{usernameError}</p>}
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Create a password:</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  placeholder="Enter your password" 
+                  value={password}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
+                />
+                {passwordError && <p className="error-message">{passwordError}</p>}
+                <ul className="password-criteria">
+                  <li className={passwordCriteria.length ? 'valid' : 'invalid'}>
+                    Contain at least 8 characters
+                  </li>
+                  <li className={passwordCriteria.capital ? 'valid' : 'invalid'}>
+                    Contain both lower and uppercase letters
+                  </li>
+                  <li className={passwordCriteria.number ? 'valid' : 'invalid'}>
+                    Contain at least one number
+                  </li>
+                  <li className={passwordCriteria.special ? 'valid' : 'invalid'}>
+                    Contain at least one special character
+                  </li>
+                </ul>
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm password:</label>
+                <input 
+                  type="password" 
+                  id="confirmPassword" 
+                  name="confirmPassword" 
+                  placeholder="Confirm your password" 
+                  value={confirmPassword}
+                  onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+                />
+                {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
+              </div>
+              <button type="submit" className="capsule-button" disabled={loading}>
+                {loading ? 'Loading...' : 'Submit'}
+              </button>
+            </form>
           </div>
-        </div>
-      ) : (
-        <div>
-          <h1>Account Created</h1>
-          <button onClick={redirectToLoginPage}>Go to Log In</button>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h1>Account Created</h1>
+            <button onClick={redirectToLoginPage} className="capsule-button">Go to Log In</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

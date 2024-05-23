@@ -8,13 +8,14 @@ body, html {
   color: #333333;
 }
 
-.create-poll-election-page {
+.create-poll-page {
   max-width: 700px;
   margin: 20px auto;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 100px; /* Ensure content is not covered by the banner */
 }
 
 h1, h2 {
@@ -32,8 +33,31 @@ h2 {
   color: #0059b3;
 }
 
-.form-container, .options-container {
+.form-container {
   padding: 20px;
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #003366;
+  font-size: 24px;
+}
+
+.title-input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
 label {
@@ -43,13 +67,31 @@ label {
   color: #003366;
 }
 
-input {
+.input-container {
+  position: relative;
   width: 100%;
+}
+
+.option-input {
+  width: calc(100% - 30px);
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.btn-delete {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: gray;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
 }
 
 button {
@@ -62,30 +104,38 @@ button {
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.btn-create, .btn-add, .btn-submit, .btn-back {
+.btn-add, .btn-submit, .btn-back {
   background-color: #003366;
   color: white;
   width: 100%;
   margin-top: 10px;
 }
 
-.btn-create:hover, .btn-add:hover, .btn-submit:hover, .btn-back:hover {
-  background-color: #0059b3;
-  transform: scale(1.05);
-}
-
-.btn-delete {
+.btn-add-text {
   background-color: transparent;
-  color: red;
+  color: #003366;
   font-weight: bold;
   cursor: pointer;
   border: none;
-  margin-left: 8px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn-add-text:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+.btn-add:hover, .btn-submit:hover, .btn-back:hover {
+  background-color: #0059b3;
+  transform: scale(1.05);
 }
 
 .error {
   color: red;
   font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .option-row {
@@ -93,4 +143,9 @@ button {
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
+}
+
+.success-container {
+  text-align: center;
+  padding: 20px;
 }

@@ -1,20 +1,19 @@
 import './Login.css';
-import { useState } from 'react'; // Import useState hook for managing state
-import axios from 'axios'; // Import Axios for making HTTP requests
-import {setUserIdCookie} from '../Cookies/AuthServices.js';
-import {useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { setUserIdCookie } from '../Cookies/AuthServices.js';
+import { useNavigate } from 'react-router-dom';
+import Banner from '../Banner/Banner';
 
-
-
-function LoginPage({history}) {
-  // State variables to store username and password
+function LoginPage({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState('');
+
+  const navigate = useNavigate();
 
   const handleUsernameChange = (value) => {
     setUsername(value);
@@ -25,15 +24,15 @@ function LoginPage({history}) {
     setPassword(value);
     setPasswordError(value ? '' : 'Please enter your password');
   };
-  const navigate = useNavigate();
 
-
-  const handleLoginSuccess = (userId) => {
-    setUserIdCookie(userId);
-    console.log("REACHED")
+  const handleLoginSuccess = async (userId) => {
+    console.log('Setting userId cookie:', userId);
+    await setUserIdCookie(userId);
+    console.log('Cookie set, logging in');
+    onLogin();
     navigate('/home-page');
   };
-  // Function to handle form submission
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,17 +47,14 @@ function LoginPage({history}) {
     }
 
     try {
-      setLoading(true); // Set loading state to true
-      // Make a POST request to the backend API endpoint for logging in
+      setLoading(true);
       const response = await axios.post('https://nobles-dao-api-276edade8fdf.herokuapp.com/login', {
         email: username,
         password: password,
       });
-      const userId= response.data.userId;
-      console.log('User ID:', response.data.userId);
-      // Handle successful login (e.g., store authentication token)
-      handleLoginSuccess(userId);
-      setLoggedIn(true);
+      const userId = response.data.userId;
+      console.log('Login successful, userId:', userId);
+      await handleLoginSuccess(userId);
     } catch (error) {
       console.error('Error logging in:', error);
       setLoginError('Invalid username or password. Please try again.');
@@ -67,13 +63,17 @@ function LoginPage({history}) {
     }
   };
 
-  const handleCreateAccount=() =>{
+  const handleCreateAccount = () => {
     navigate("/create-account");
   };
 
-  // Render the login form if not logged in, otherwise render a success message
-  if (!loggedIn) {
-    return (
+  const bannerButtons = [
+    { label: 'Create Account', link: '/create-account' }
+  ];
+
+  return (
+    <div className="login-page">
+      <Banner title="Log In" buttons={bannerButtons} />
       <div className="container">
         <h1>Log In</h1>
         {loginError && <p className="error-message">{loginError}</p>}
@@ -102,17 +102,16 @@ function LoginPage({history}) {
             />
             {passwordError && <p className="error-message">{passwordError}</p>}
           </div>
-          <button type="submit" >
+          <button type="submit" className="capsule-button">
             {loading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
-        <button onClick={handleCreateAccount}>Need an Account?</button>
+        <p className="create-account-text" onClick={handleCreateAccount}>
+          Don't have an account? <span>Click to create one</span>
+        </p>
       </div>
-    );
-  } else {
-    // Render a success message or redirect to another page
-    //navigate('/home-page');
-  }
+    </div>
+  );
 }
 
 export default LoginPage;
