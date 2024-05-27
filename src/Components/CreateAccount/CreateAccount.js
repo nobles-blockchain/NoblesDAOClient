@@ -87,7 +87,6 @@ function CreateAccount() {
       }
     } finally {
       setLoading(false);
-      //setTimeout(() => navigate('/login'), 2000);
     }
   };
 
