@@ -87,16 +87,17 @@ function PollPage() {
   const renderPollResults = (poll) => {
     const data = poll.choices.map(choice => ({
       name: choice.option,
-      value: choice.votes
-    }));
+      value: choice.votes}))
+    const maxLabelLength = Math.max(...data.map(d => d.name.length));
+    
 
     return (
       <div className="Graph-container">
         <div className="Graph">
           <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={data} layout='vertical'>
+            <BarChart data={data} layout='vertical' margin={{left: maxLabelLength * 8}} >
               <XAxis type="number" hide />
-              <YAxis dataKey="name" type="category" />
+              <YAxis dataKey="name" type="category" tick={{ width: maxLabelLength * 6, fill: 'black'}} tickLine={false}  />
               <Bar dataKey="value" fill="#1345AA" label={{ position: 'center', fill: 'white'}}/>
             </BarChart>
           </ResponsiveContainer>
