@@ -77,6 +77,7 @@ function CreateAccount() {
       setConfirmPassword('');
       setSubmitted(true);
       setErrorMessage(''); // Clear any previous error message
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       console.error("Error creating account:", error);
       if (error.response.data.error === "EMAIL_EXISTS") {
@@ -86,7 +87,6 @@ function CreateAccount() {
       }
     } finally {
       setLoading(false);
-      setTimeout(() => navigate('/login'), 2000);
     }
   };
 
