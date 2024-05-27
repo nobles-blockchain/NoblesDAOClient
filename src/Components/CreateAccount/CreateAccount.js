@@ -86,6 +86,7 @@ function CreateAccount() {
       }
     } finally {
       setLoading(false);
+      setTimeout(() => navigate('/login'), 2000);
     }
   };
 
@@ -163,8 +164,7 @@ function CreateAccount() {
           </div>
         ) : (
           <div>
-            <h1>Account Created</h1>
-            <button onClick={redirectToLoginPage} className="capsule-button">Go to Log In</button>
+            <h1>Account Created, Redirecting to Login Page</h1>
           </div>
         )}
       </div>
